@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrangChu));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.tongQuan1 = new QuanLySSCenter.User_Control.TongQuan();
             this.guna2Button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -46,6 +45,7 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            this.tongQuan1 = new QuanLySSCenter.User_Control.TongQuan();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -72,14 +72,7 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1414, 740);
             this.guna2Panel1.TabIndex = 0;
-            // 
-            // tongQuan1
-            // 
-            this.tongQuan1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.tongQuan1.Location = new System.Drawing.Point(290, 88);
-            this.tongQuan1.Name = "tongQuan1";
-            this.tongQuan1.Size = new System.Drawing.Size(1044, 617);
-            this.tongQuan1.TabIndex = 13;
+            this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
             // guna2Button10
             // 
@@ -92,9 +85,9 @@
             this.guna2Button10.ForeColor = System.Drawing.Color.White;
             this.guna2Button10.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button10.Image")));
             this.guna2Button10.ImageSize = new System.Drawing.Size(25, 25);
-            this.guna2Button10.Location = new System.Drawing.Point(1330, 5);
+            this.guna2Button10.Location = new System.Drawing.Point(1330, 15);
             this.guna2Button10.Name = "guna2Button10";
-            this.guna2Button10.Size = new System.Drawing.Size(66, 45);
+            this.guna2Button10.Size = new System.Drawing.Size(66, 35);
             this.guna2Button10.TabIndex = 12;
             this.guna2Button10.Click += new System.EventHandler(this.guna2Button10_Click);
             // 
@@ -102,7 +95,7 @@
             // 
             this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(1275, 15);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(1284, 15);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(59, 35);
             this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -113,7 +106,7 @@
             // 
             this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(1227, 15);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(1236, 15);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(42, 35);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -272,6 +265,14 @@
             // guna2Elipse1
             // 
             this.guna2Elipse1.TargetControl = this;
+            // 
+            // tongQuan1
+            // 
+            this.tongQuan1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.tongQuan1.Location = new System.Drawing.Point(290, 88);
+            this.tongQuan1.Name = "tongQuan1";
+            this.tongQuan1.Size = new System.Drawing.Size(1044, 617);
+            this.tongQuan1.TabIndex = 13;
             // 
             // TrangChu
             // 
