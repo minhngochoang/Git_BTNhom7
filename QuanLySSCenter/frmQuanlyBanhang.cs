@@ -81,5 +81,20 @@ namespace TP_BVSK
         {
 
         }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

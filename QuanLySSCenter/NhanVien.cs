@@ -14,33 +14,13 @@ namespace QuanLySSCenter
     public partial class NhanVien : Form
     {
         //Biến kết nối tới database
-        string sCon = "Data Source=.\\MINHNGOCHOANG;Initial Catalog=BTLNhom7;Integrated Security=True;";
-        public NhanVien()
+        string sCon = "Data Source=.\\MINHNGOCHOANG;Initial Catalog=BTLNhom7;Integrated Security=True;TrustServerCertificate=True;"; public NhanVien()
         {
             InitializeComponent(); //Giao diện
         }
 
         private void NhanVien_Load(object sender, EventArgs e)      
         {
-            // Kết nối đến SQL Server
-            using (SqlConnection con = new SqlConnection(sCon))
-            {
-                try
-                {
-                    con.Open(); // Mở kết nối
-                    string sQuery = "SELECT * FROM NhaCungCap";
-                    SqlDataAdapter adapter = new SqlDataAdapter(sQuery, con);
-                    DataSet ds = new DataSet();
-                    adapter.Fill(ds, "NhaCungCap");
-
-                    dataGridView1.DataSource = ds.Tables["NhaCungCap"];
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
-                }
-            }
-
             // Load lại dữ liệu (an toàn)
             LoadData();
         }
@@ -52,16 +32,19 @@ namespace QuanLySSCenter
             {
                 try
                 {
+                    con.Open(); // Cần phải mở kết nối
                     string query = "SELECT * FROM NhanVien";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
-                    DataSet dt = new DataSet();
-                    adapter.Fill(dt, "NhanVien");
+                    DataSet ds = new DataSet(); // Đổi tên biến dt thành ds cho rõ ràng hơn khi dùng DataSet
+                    adapter.Fill(ds, "NhanVien");
 
-                    dataGridView1.DataSource = dt.Tables["NhanVien"];
+                    // Đảm bảo tên DataGridView chính xác
+                    guna2DataGridView1.DataSource = ds.Tables["NhanVien"]; // Nếu bạn dùng GunaUI2 DataGridView
+                                                                           // Hoặc: dataGridView1.DataSource = ds.Tables["NhanVien"]; // Nếu bạn dùng DataGridView mặc định
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+                    MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
                 }
             }
         }
@@ -82,23 +65,37 @@ namespace QuanLySSCenter
 
             if (string.IsNullOrEmpty(sMaNV))
             {
-                MessageBox.Show("Mã nhân viên không tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Sửa thông báo này, vì nếu trống thì không phải "không tồn tại"
+                MessageBox.Show("Vui lòng nhập Mã Nhân Viên để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             using (SqlConnection con = new SqlConnection(sCon))
             {
-                string query = "SELECT * FROM NhanVien WHERE sMaNV = @MaNV";
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                da.SelectCommand.Parameters.AddWithValue("@MaNV", sMaNV);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dataGridView1.DataSource = dt;
-
-                if (dt.Rows.Count == 0)
+                try
                 {
-                    MessageBox.Show("Không tìm thấy nhân viên phù hợp.");
+                    con.Open();
+                    // Lỗi logic: tên cột trong WHERE clause không khớp với tên biến SQL parameter
+                    // string query = "SELECT * FROM NhanVien WHERE sMaNV = @MaNV"; // Lỗi ở 'sMaNV'
+                    string query = "SELECT * FROM NhanVien WHERE MaNV = @MaNV"; // Cột trong DB thường là MaNV
+
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    da.SelectCommand.Parameters.AddWithValue("@MaNV", sMaNV);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt); // DataAdapter tự mở và đóng kết nối nếu cần, nhưng tốt hơn là tự quản lý
+
+                    guna2DataGridView1.DataSource = dt;
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên phù hợp.");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // Bắt và hiển thị lỗi nếu có vấn đề trong quá trình kết nối hoặc truy vấn CSDL
+                    MessageBox.Show("Lỗi khi tìm kiếm nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
 
@@ -115,19 +112,24 @@ namespace QuanLySSCenter
         //Sửa: Lâys dòng chọn -> form Sửa NV -> LoadData
         private void bt_Sua_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            // Đảm bảo tên DataGridView chính xác
+            if (guna2DataGridView1.SelectedRows.Count > 0) // Thay dataGridView1 bằng guna2DataGridView1
             {
-                string MaNV = dataGridView1.SelectedRows[0].Cells["MaNV"].Value.ToString();
+                // Lấy MaNV từ hàng được chọn
+                string MaNV = guna2DataGridView1.SelectedRows[0].Cells["MaNV"].Value.ToString(); // Thay dataGridView1 bằng guna2DataGridView1
 
-                SuaNhanVien fSuaNV = new SuaNhanVien();
+                // Tạo instance của SuaNhanVien và truyền MaNV vào constructor
+                SuaNhanVien fSuaNV = new SuaNhanVien(MaNV); // Truyền MaNV vào đây!
 
-                fSuaNV.ShowDialog();
-
-                LoadData(); // Tải lại dữ liệu sau khi sửa
+                // Xử lý kết quả trả về từ form SuaNhanVien (tùy chọn)
+                if (fSuaNV.ShowDialog() == DialogResult.OK) // Nếu form SuaNhanVien trả về OK (đã lưu thành công)
+                {
+                    LoadData(); // Tải lại dữ liệu
+                }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một nhà cung cấp để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn một nhân viên để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void bt_Xoa_Click(object sender, EventArgs e)
