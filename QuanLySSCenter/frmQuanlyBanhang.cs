@@ -29,7 +29,7 @@ namespace TP_BVSK
             {
                 con.Open();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 MessageBox.Show("Xảy ra lỗi trong quá trình kết nối SB");
             }

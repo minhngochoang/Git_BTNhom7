@@ -24,22 +24,37 @@ namespace QuanLySSCenter
 
         }
 
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        private void txb_MaNV_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void guna2TextBox2_TextChanged(object sender, EventArgs e)
+        private void txb_TenNV_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void guna2TextBox3_TextChanged(object sender, EventArgs e)
+        private void txb_Sdt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+                                             
+        private void bt_Luu_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void bt_Huy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_exit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

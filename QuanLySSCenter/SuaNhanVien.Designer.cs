@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SuaNhanVien));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.huy_Button = new Guna.UI2.WinForms.Guna2Button();
-            this.luu_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.bt_exit = new Guna.UI2.WinForms.Guna2Button();
+            this.bt_Huy = new Guna.UI2.WinForms.Guna2Button();
+            this.bt_Luu = new Guna.UI2.WinForms.Guna2Button();
             this.txb_Sdt = new Guna.UI2.WinForms.Guna2TextBox();
             this.txb_TenNV = new Guna.UI2.WinForms.Guna2TextBox();
             this.txb_MaNV = new Guna.UI2.WinForms.Guna2TextBox();
@@ -43,9 +43,9 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.AliceBlue;
-            this.guna2Panel1.Controls.Add(this.guna2Button5);
-            this.guna2Panel1.Controls.Add(this.huy_Button);
-            this.guna2Panel1.Controls.Add(this.luu_Button);
+            this.guna2Panel1.Controls.Add(this.bt_exit);
+            this.guna2Panel1.Controls.Add(this.bt_Huy);
+            this.guna2Panel1.Controls.Add(this.bt_Luu);
             this.guna2Panel1.Controls.Add(this.txb_Sdt);
             this.guna2Panel1.Controls.Add(this.txb_TenNV);
             this.guna2Panel1.Controls.Add(this.txb_MaNV);
@@ -54,52 +54,55 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(925, 582);
             this.guna2Panel1.TabIndex = 0;
+            this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
-            // guna2Button5
+            // bt_exit
             // 
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button5.ForeColor = System.Drawing.Color.White;
-            this.guna2Button5.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button5.Image")));
-            this.guna2Button5.ImageSize = new System.Drawing.Size(70, 70);
-            this.guna2Button5.Location = new System.Drawing.Point(3, 13);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(91, 45);
-            this.guna2Button5.TabIndex = 23;
+            this.bt_exit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.bt_exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.bt_exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.bt_exit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.bt_exit.FillColor = System.Drawing.Color.Transparent;
+            this.bt_exit.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bt_exit.ForeColor = System.Drawing.Color.White;
+            this.bt_exit.Image = ((System.Drawing.Image)(resources.GetObject("bt_exit.Image")));
+            this.bt_exit.ImageSize = new System.Drawing.Size(70, 70);
+            this.bt_exit.Location = new System.Drawing.Point(3, 13);
+            this.bt_exit.Name = "bt_exit";
+            this.bt_exit.Size = new System.Drawing.Size(91, 45);
+            this.bt_exit.TabIndex = 5;
+            this.bt_exit.Click += new System.EventHandler(this.bt_exit_Click);
             // 
-            // huy_Button
+            // bt_Huy
             // 
-            this.huy_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.huy_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.huy_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.huy_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.huy_Button.FillColor = System.Drawing.Color.DarkGray;
-            this.huy_Button.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold);
-            this.huy_Button.ForeColor = System.Drawing.Color.White;
-            this.huy_Button.Location = new System.Drawing.Point(496, 473);
-            this.huy_Button.Name = "huy_Button";
-            this.huy_Button.Size = new System.Drawing.Size(180, 45);
-            this.huy_Button.TabIndex = 11;
-            this.huy_Button.Text = "Hủy";
+            this.bt_Huy.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.bt_Huy.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.bt_Huy.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.bt_Huy.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.bt_Huy.FillColor = System.Drawing.Color.DarkGray;
+            this.bt_Huy.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold);
+            this.bt_Huy.ForeColor = System.Drawing.Color.White;
+            this.bt_Huy.Location = new System.Drawing.Point(496, 473);
+            this.bt_Huy.Name = "bt_Huy";
+            this.bt_Huy.Size = new System.Drawing.Size(180, 45);
+            this.bt_Huy.TabIndex = 4;
+            this.bt_Huy.Text = "Hủy";
+            this.bt_Huy.Click += new System.EventHandler(this.bt_Huy_Click);
             // 
-            // luu_Button
+            // bt_Luu
             // 
-            this.luu_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.luu_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.luu_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.luu_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.luu_Button.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.luu_Button.ForeColor = System.Drawing.Color.White;
-            this.luu_Button.Location = new System.Drawing.Point(274, 473);
-            this.luu_Button.Name = "luu_Button";
-            this.luu_Button.Size = new System.Drawing.Size(180, 45);
-            this.luu_Button.TabIndex = 10;
-            this.luu_Button.Text = "Lưu";
-            this.luu_Button.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.bt_Luu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.bt_Luu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.bt_Luu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.bt_Luu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.bt_Luu.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.bt_Luu.ForeColor = System.Drawing.Color.White;
+            this.bt_Luu.Location = new System.Drawing.Point(274, 473);
+            this.bt_Luu.Name = "bt_Luu";
+            this.bt_Luu.Size = new System.Drawing.Size(180, 45);
+            this.bt_Luu.TabIndex = 3;
+            this.bt_Luu.Text = "Lưu";
+            this.bt_Luu.Click += new System.EventHandler(this.bt_Luu_Click);
             // 
             // txb_Sdt
             // 
@@ -119,8 +122,8 @@
             this.txb_Sdt.PlaceholderText = "Nhập số điện thoại nhân viên";
             this.txb_Sdt.SelectedText = "";
             this.txb_Sdt.Size = new System.Drawing.Size(369, 77);
-            this.txb_Sdt.TabIndex = 9;
-            this.txb_Sdt.TextChanged += new System.EventHandler(this.guna2TextBox3_TextChanged);
+            this.txb_Sdt.TabIndex = 2;
+            this.txb_Sdt.TextChanged += new System.EventHandler(this.txb_Sdt_TextChanged);
             // 
             // txb_TenNV
             // 
@@ -140,8 +143,8 @@
             this.txb_TenNV.PlaceholderText = "Nhập tên nhân viên";
             this.txb_TenNV.SelectedText = "";
             this.txb_TenNV.Size = new System.Drawing.Size(369, 77);
-            this.txb_TenNV.TabIndex = 8;
-            this.txb_TenNV.TextChanged += new System.EventHandler(this.guna2TextBox2_TextChanged);
+            this.txb_TenNV.TabIndex = 1;
+            this.txb_TenNV.TextChanged += new System.EventHandler(this.txb_Sdt_TextChanged);
             // 
             // txb_MaNV
             // 
@@ -161,8 +164,8 @@
             this.txb_MaNV.PlaceholderText = "Nhập mã nhân viên";
             this.txb_MaNV.SelectedText = "";
             this.txb_MaNV.Size = new System.Drawing.Size(369, 77);
-            this.txb_MaNV.TabIndex = 7;
-            this.txb_MaNV.TextChanged += new System.EventHandler(this.guna2TextBox1_TextChanged);
+            this.txb_MaNV.TabIndex = 0;
+            this.txb_MaNV.TextChanged += new System.EventHandler(this.txb_MaNV_TextChanged);
             // 
             // guna2HtmlLabel1
             // 
@@ -194,12 +197,12 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Button huy_Button;
-        private Guna.UI2.WinForms.Guna2Button luu_Button;
+        private Guna.UI2.WinForms.Guna2Button bt_Huy;
+        private Guna.UI2.WinForms.Guna2Button bt_Luu;
         private Guna.UI2.WinForms.Guna2TextBox txb_Sdt;
         private Guna.UI2.WinForms.Guna2TextBox txb_TenNV;
         private Guna.UI2.WinForms.Guna2TextBox txb_MaNV;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
+        private Guna.UI2.WinForms.Guna2Button bt_exit;
     }
 }
