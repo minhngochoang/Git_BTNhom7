@@ -51,7 +51,7 @@
             this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.guna2TextBox2.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(273, 24);
+            this.guna2TextBox2.Location = new System.Drawing.Point(282, 24);
             this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.guna2TextBox2.Name = "guna2TextBox2";
             this.guna2TextBox2.PasswordChar = '\0';

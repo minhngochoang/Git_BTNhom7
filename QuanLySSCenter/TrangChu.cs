@@ -17,22 +17,54 @@ namespace QuanLySSCenter
             InitializeComponent();
         }
 
-        private void guna2Button10_Click(object sender, EventArgs e)
+        private void bt_exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void guna2Button9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void bt_Tongquan_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void bt_Baocao_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void bt_Nhaphang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_Banhang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_Congno_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void bt_Sanpham_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_Khachhang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_ncc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_nhanvien_Click(object sender, EventArgs e)
         {
 
         }
