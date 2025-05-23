@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SuaNhanVien));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.bt_exit = new Guna.UI2.WinForms.Guna2Button();
             this.bt_Huy = new Guna.UI2.WinForms.Guna2Button();
             this.bt_Luu = new Guna.UI2.WinForms.Guna2Button();
             this.txb_Sdt = new Guna.UI2.WinForms.Guna2TextBox();
@@ -43,7 +41,6 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.AliceBlue;
-            this.guna2Panel1.Controls.Add(this.bt_exit);
             this.guna2Panel1.Controls.Add(this.bt_Huy);
             this.guna2Panel1.Controls.Add(this.bt_Luu);
             this.guna2Panel1.Controls.Add(this.txb_Sdt);
@@ -55,23 +52,6 @@
             this.guna2Panel1.Size = new System.Drawing.Size(925, 582);
             this.guna2Panel1.TabIndex = 0;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
-            // 
-            // bt_exit
-            // 
-            this.bt_exit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.bt_exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.bt_exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.bt_exit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.bt_exit.FillColor = System.Drawing.Color.Transparent;
-            this.bt_exit.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bt_exit.ForeColor = System.Drawing.Color.White;
-            this.bt_exit.Image = ((System.Drawing.Image)(resources.GetObject("bt_exit.Image")));
-            this.bt_exit.ImageSize = new System.Drawing.Size(70, 70);
-            this.bt_exit.Location = new System.Drawing.Point(3, 13);
-            this.bt_exit.Name = "bt_exit";
-            this.bt_exit.Size = new System.Drawing.Size(91, 45);
-            this.bt_exit.TabIndex = 5;
-            this.bt_exit.Click += new System.EventHandler(this.bt_exit_Click);
             // 
             // bt_Huy
             // 
@@ -189,6 +169,7 @@
             this.Controls.Add(this.guna2Panel1);
             this.Name = "SuaNhanVien";
             this.Text = "SuaNhanVien";
+            this.Load += new System.EventHandler(this.SuaNhanVien_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -203,6 +184,5 @@
         private Guna.UI2.WinForms.Guna2TextBox txb_TenNV;
         private Guna.UI2.WinForms.Guna2TextBox txb_MaNV;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2Button bt_exit;
     }
 }

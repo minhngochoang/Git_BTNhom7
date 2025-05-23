@@ -13,16 +13,59 @@ namespace QuanLySSCenter
 {
     public partial class NhanVien : Form
     {
+        //Biến kết nối tới database
         string sCon = "Data Source=.\\MINHNGOCHOANG;Initial Catalog=BTLNhom7;Integrated Security=True;";
         public NhanVien()
         {
-            InitializeComponent();
-            ClearNhanVienInfo();
+            InitializeComponent(); //Giao diện
         }
-        private void NhanVien_Load(object sender, EventArgs e)
+
+        private void NhanVien_Load(object sender, EventArgs e)      
         {
-            
+            // Kết nối đến SQL Server
+            using (SqlConnection con = new SqlConnection(sCon))
+            {
+                try
+                {
+                    con.Open(); // Mở kết nối
+                    string sQuery = "SELECT * FROM NhaCungCap";
+                    SqlDataAdapter adapter = new SqlDataAdapter(sQuery, con);
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds, "NhaCungCap");
+
+                    dataGridView1.DataSource = ds.Tables["NhaCungCap"];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+                }
+            }
+
+            // Load lại dữ liệu (an toàn)
+            LoadData();
         }
+
+        //Hàm load: Tải dữ liệu vào
+        private void LoadData()
+        {
+            using (SqlConnection con = new SqlConnection(sCon))
+            {
+                try
+                {
+                    string query = "SELECT * FROM NhanVien";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                    DataSet dt = new DataSet();
+                    adapter.Fill(dt, "NhanVien");
+
+                    dataGridView1.DataSource = dt.Tables["NhanVien"];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi kết nối CSDL: " + ex.Message);
+                }
+            }
+        }
+
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -32,88 +75,101 @@ namespace QuanLySSCenter
 
         }
 
+        //Tìm kiếm
         private void bt_Tim_Click(object sender, EventArgs e)
         {
             string sMaNV = txb_NhapMa.Text.Trim();
 
             if (string.IsNullOrEmpty(sMaNV))
             {
-                MessageBox.Show("Vui lòng nhập Mã Nhân Viên để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ClearNhanVienInfo(); // Xóa thông tin cũ nếu có
+                MessageBox.Show("Mã nhân viên không tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            try
+            using (SqlConnection con = new SqlConnection(sCon))
             {
-                using (SqlConnection connection = new SqlConnection(sCon))
+                string query = "SELECT * FROM NhanVien WHERE sMaNV = @MaNV";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@MaNV", sMaNV);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
+
+                if (dt.Rows.Count == 0)
                 {
-                    connection.Open(); // Mở kết nối đến CSDL
-
-                    // Chuỗi truy vấn SQL
-                    string query = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        // Thêm tham số để tránh SQL Injection
-                        command.Parameters.AddWithValue("@MaNV", sMaNV);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read()) // Nếu tìm thấy bản ghi
-                            {
-                                // Đọc dữ liệu từ SqlDataReader và hiển thị lên các controls
-                                // Ví dụ:
-                                lblTenNV.Text = reader["TenNV"].ToString();
-                                lblSDT.Text = reader["SDT"].ToString();
-
-                            }
-                            else
-                            {
-                                // Không tìm thấy nhân viên
-                                MessageBox.Show($"Không tìm thấy nhân viên có mã: {sMaNV}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                //ClearNhanVienInfo(); // Xóa thông tin cũ
-                                txb_NhapMa.Text = "";
-                            }
-                        }   
-           
-                    } 
+                    MessageBox.Show("Không tìm thấy nhân viên phù hợp.");
                 }
             }
-            catch (SqlException ex)
-            {
-                // Xử lý các lỗi liên quan đến CSDL
-                MessageBox.Show($"Lỗi CSDL: {ex.Message}\nVui lòng kiểm tra chuỗi kết nối hoặc quyền truy cập.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ClearNhanVienInfo();
-            }
-            catch (Exception ex)
-            {
-                // Xử lý các lỗi chung khác
-                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ClearNhanVienInfo();
-            }
         }
-        private void ClearNhanVienInfo()
-        {
-            lblTenNV.Text = "";
-            lblSDT.Text = "";
 
-            // Nếu bạn có DataGridView hiển thị kết quả chi tiết, cũng cần làm trống nó:
-            // guna2DataGridView1.DataSource = null;
-        }
+        //Thêm: khi form đóng hiện lại LoadData()
         private void bt_Them_Click(object sender, EventArgs e)
         {
-            ThemNhanVien fthemnv =  new ThemNhanVien();
+            ThemNhanVien fthemnv = new ThemNhanVien();
 
+            fthemnv.FormClosed += (s, args) => LoadData();
             // ShowDialog() sẽ chặn Form NhanVien cho đến khi ThemNhanVienForm đóng
-            fthemnv.ShowDialog();
+            fthemnv.ShowDialog(); // Hiển thị form thêm
         }
+
+        //Sửa: Lâys dòng chọn -> form Sửa NV -> LoadData
         private void bt_Sua_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string MaNV = dataGridView1.SelectedRows[0].Cells["MaNV"].Value.ToString();
 
+                SuaNhanVien fSuaNV = new SuaNhanVien();
+
+                fSuaNV.ShowDialog();
+
+                LoadData(); // Tải lại dữ liệu sau khi sửa
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một nhà cung cấp để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private void bt_Xoa_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string MaNV = dataGridView1.SelectedRows[0].Cells["MaNV"].Value.ToString();
 
+                DialogResult dialogResult = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.No)
+                    return;
+
+                using (SqlConnection con = new SqlConnection(sCon))
+                {
+                    try
+                    {
+                        con.Open();
+                        string query = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@MaNV", MaNV);
+
+                        int result = cmd.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không xóa được!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void bt_exit_Click(object sender, EventArgs e)
